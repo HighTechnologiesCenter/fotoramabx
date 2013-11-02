@@ -1,6 +1,5 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$MESS['MEDIALIBRARY_COLLECTION'] = 'Коллекция медиабиблиотеки';
 $MESS['SHUFFLE'] = 'Выводить изображения в случайном порядке';
 $MESS['ALLOW_FULLSCREEN'] = 'Полноэкранный просмотр';
 $MESS['FULLSCREEN_DISABLED'] = 'Отключен';
@@ -16,3 +15,10 @@ $MESS['CHANGE_HASH_TIP'] = 'Работает только при наличии 
 $MESS['LAZY_LOAD'] = 'Игнорировать браузеры с отключенным JavaScript';
 $MESS['SHOW_NAVIGATION_ON_IMAGE'] = 'Показывать навигацию поверх изображения';
 $MESS['LOOP'] = 'Зациклить навигацию по изображениям';
+$MESS['MEDIALIBRARY_COLLECTION'] = 'Коллекция медиабиблиотеки';
+$MESS['IBLOCK_SECTION'] = 'Раздел инфоблока';
+$MESS['SOURCE_TYPE'] = 'Тип источника изображений';
+$MESS['SOURCE_ID'] = 'Источник изображений';
+$MESS['FILEMAN_MODULE_NOT_FOUND'] = 'Модуль "Управление структурой" не установлен';
+$MESS['IBLOCK_MODULE_NOT_FOUND'] = 'Модуль "Информационные блоки" не установлен';
+$MESS['IBLOCK'] = 'Инфоблок';

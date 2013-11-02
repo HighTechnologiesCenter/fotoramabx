@@ -62,5 +62,5 @@ if(!empty($arResult['IMAGES']))
 }
 else
 {
-	ShowError(GetMessage('NO_IMAGES_IN_MEDIALIBRARY_COLLECTION'));
+	ShowError(GetMessage('NO_IMAGES'));
 }

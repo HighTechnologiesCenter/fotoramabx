@@ -1,6 +1,5 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$MESS['MEDIALIBRARY_COLLECTION'] = 'Medialibrary collection';
 $MESS['SHUFFLE'] = 'Shuffle images';
 $MESS['ALLOW_FULLSCREEN'] = 'Fullscreen mode';
 $MESS['FULLSCREEN_DISABLED'] = 'Disabled';
@@ -16,3 +15,10 @@ $MESS['CHANGE_HASH_TIP'] = 'Works only with only one Fotorama per page';
 $MESS['LAZY_LOAD'] = 'Ignore browsers without JavaScript support';
 $MESS['SHOW_NAVIGATION_ON_IMAGE'] = 'Show navigation on the bottom of image';
 $MESS['LOOP'] = 'Loop first and last images navigation';
+$MESS['MEDIALIBRARY_COLLECTION'] = 'Medialibrary collection';
+$MESS['IBLOCK_SECTION'] = 'Iblock section';
+$MESS['SOURCE_TYPE'] = 'Images source type';
+$MESS['SOURCE_TYPE'] = 'Images source';
+$MESS['FILEMAN_MODULE_NOT_FOUND'] = 'Filemanager module not intalled';
+$MESS['IBLOCK_MODULE_NOT_FOUND'] = 'Iblock module not intalled';
+$MESS['IBLOCK'] = 'Iblock';
