@@ -4,7 +4,13 @@ if(!empty($arResult['IMAGES']))
 {
 	?>
 	<div class="fotorama" 
-	     data-width="100%" 
+	     data-width="100%"
+		<?
+		/**
+		 * Расчитываем соотношение сторон по первой картинке в списке
+		 */
+		?>
+		 data-ratio="<?echo $arResult['IMAGES'][0]['WIDTH'] . '/' . $arResult['IMAGES'][0]['HEIGHT']?>"
 	     <?if(!empty($arParams['ALLOW_FULLSCREEN'])){
 			?>
 			data-allowfullscreen="<?echo $arParams['ALLOW_FULLSCREEN']?>"  

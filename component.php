@@ -2,6 +2,9 @@
 
 if(CModule::IncludeModule('fileman'))
 {
+	/** 
+	 * Так как без JS- и CSS-файлов фоторамы компонент не имеет смысла, добавляем их тут
+	 */
 	$APPLICATION->SetAdditionalCSS('http://fotorama.s3.amazonaws.com/4.4.6/fotorama.css');
 
 	if(!empty($arParams['SHOW_NAVIGATION_ON_IMAGE']) && $arParams['SHOW_NAVIGATION_ON_IMAGE'] === 'Y')
