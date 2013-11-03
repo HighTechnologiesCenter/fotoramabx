@@ -16,7 +16,6 @@ $navigationStyles = array(
 $navigationPositions = array(
 	'bottom' => GetMessage('NAVIGATION_POSITION_BOTTOM'),
 	'top' => GetMessage('NAVIGATION_POSITION_TOP'),
-	'over' => GetMessage('NAVIGATION_POSITION_OVER'),
 );
 $sourceTypes = array( //типы источников изображений
 	'medialibrary_collection' => GetMessage('MEDIALIBRARY_COLLECTION'), //коллекция медиабиблиотеки
@@ -123,6 +122,7 @@ $arComponentParameters['PARAMETERS']['SOURCE_TYPE'] = array( //выбор ист
 
 if($arCurrentValues['SOURCE_TYPE'] === 'iblock_section')
 {
+	//TODO здесь надо бы проверять, подключен ли вообще модуль инфоблоков
 	$iblocksList = array();
 	$dbIblocks = CIBlock::GetList(
 		array(
