@@ -32,6 +32,7 @@ class CFotoramaComponent extends CBitrixComponent
 					'WIDTH' => $item['WIDTH'],
 					'PATH' => $item['PATH'],
 					'THUMB_PATH' => $item['THUMB_PATH'],
+					'DESCRIPTION' => $item['DESCRIPTION'],
 				);
 				$images[] = $image;
 			}
@@ -83,6 +84,7 @@ class CFotoramaComponent extends CBitrixComponent
 					'WIDTH' => $detailPictureInfo['WIDTH'],
 					'PATH' => $path,
 					'THUMB_PATH' => $thumbPath,
+					'DESCRIPTION' => $detailPictureInfo['DESCRIPTION'],
 				);
 				$images[] = $image;
 			}

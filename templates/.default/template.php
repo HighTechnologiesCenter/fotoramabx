@@ -41,19 +41,25 @@ if(!empty($arResult['IMAGES']))
 		foreach($arResult['IMAGES'] as $key => $image)
 		{
 			?>
-			<a href="<?echo $image['PATH'];?>" id="fotorama-<?echo $key;?>" <?
-				if(!empty($arParams['LAZY_LOAD']) && $arParams['LAZY_LOAD'] === 'Y'){
+			<a href="<?echo $image['PATH'];?>" id="fotorama-<?echo $key;?>" 
+				<?if(!empty($arParams['SHOW_CAPTION']) && $arParams['SHOW_CAPTION'] === 'Y' && !empty($image['DESCRIPTION']))
+				{
 					?>
-					data-thumb="<?echo $image['THUMB_PATH'];?>">
+					data-caption="<?echo $image['DESCRIPTION']?>"
+					<?
+				}?>
+				<?if(!empty($arParams['LAZY_LOAD']) && $arParams['LAZY_LOAD'] === 'Y'){
+					?>
+					data-thumb="<?echo $image['THUMB_PATH'];?>"
 					<?
 				}
 				else
 				{
 					?>
-					><img src="<?echo $image['THUMB_PATH'];?>" alt=""/>
+					><img src="<?echo $image['THUMB_PATH'];?>" alt=""
 					<?
 				}
-				?></a>
+				?>></a>
 			<?
 		}
 		?>

@@ -22,3 +22,4 @@ $MESS['SOURCE_TYPE'] = 'Images source';
 $MESS['FILEMAN_MODULE_NOT_FOUND'] = 'Filemanager module not intalled';
 $MESS['IBLOCK_MODULE_NOT_FOUND'] = 'Iblock module not intalled';
 $MESS['IBLOCK'] = 'Iblock';
+$MESS['SHOW_CAPTION'] = 'Show image caption';

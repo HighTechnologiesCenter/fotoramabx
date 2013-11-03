@@ -14,9 +14,9 @@ $navigationStyles = array(
 	'dots' => GetMessage('NAVIGATION_DOTS'),
 	'false' => GetMessage('NAVIGATION_NONE'),
 );
-$sourceTypes = array(
-	'medialibrary_collection' => GetMessage('MEDIALIBRARY_COLLECTION'),
-	'iblock_section' => GetMessage('IBLOCK_SECTION'),
+$sourceTypes = array( //типы источников изображений
+	'medialibrary_collection' => GetMessage('MEDIALIBRARY_COLLECTION'), //коллекция медиабиблиотеки
+	'iblock_section' => GetMessage('IBLOCK_SECTION'), //раздел инфоблока (используются изображения анонса и детальные изображения элементов) 
 );
 
 switch($arCurrentValues['SOURCE_TYPE'])
@@ -137,7 +137,7 @@ $arComponentParameters = array(
 			'REFRESH' => 'Y',
 			'MULTIPLE' => 'N',
 		),
-		'IBLOCK_ID' => $iblockListParameter,
+		'IBLOCK_ID' => $iblockListParameter, //если не выбран тип источника "Раздел инфоблока", содержит null и не отображается в форме
 		'SOURCE_ID' => array( //выбор коллекции, из которой брать фотографии
 			'PARENT' => 'BASE',
 			'NAME' => $sourceIdName,
@@ -164,6 +164,11 @@ $arComponentParameters = array(
 			'VALUES' => $navigationStyles,
 			'REFRESH' => 'N',
 			'MULTIPLE' => 'N',
+		),
+		'SHOW_CAPTION' => array( //показывать подписи
+			'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
+			'NAME' => GetMessage('SHOW_CAPTION'),
+			'TYPE' => 'CHECKBOX',
 		),
 		'SHUFFLE' => array( //перемешивать ли изображения каждый раз перед выводом
 			'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',

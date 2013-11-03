@@ -30,7 +30,6 @@ if(CModule::IncludeModule('fileman'))
 				$arResult['IMAGES'] = $this->getImagesFromIblockSection($arParams['SOURCE_ID']);
 				break;
 		}
-		
 
 		$this->IncludeComponentTemplate();
 	}
