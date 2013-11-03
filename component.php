@@ -6,7 +6,7 @@ if(CModule::IncludeModule('fileman'))
 	 * Так как без JS- и CSS-файлов фоторамы компонент не имеет смысла, добавляем их тут
 	 */
 	$APPLICATION->SetAdditionalCSS('http://fotorama.s3.amazonaws.com/4.4.6/fotorama.css');
-	$APPLICATION->AddHeadString('<script>!window.jQuery && document.write(unescape(\'%3Cscript src="//code.jquery.com/jquery-1.10.2.min.js"%3E%3C/script%3E\'))</script>');
+	$APPLICATION->AddHeadString('<script>!window.jQuery && document.write(unescape(\'%3Cscript src="//code.jquery.com/jquery-1.10.2.min.js"%3E%3C/script%3E\'))</script>',true);
 	$APPLICATION->AddHeadScript('http://fotorama.s3.amazonaws.com/4.4.6/fotorama.js');
 	
 	if ($this->StartResultCache($arParams['CACHE_TIME'], $arParams['SOURCE_TYPE'] . $arParams['SOURCE_ID']))
