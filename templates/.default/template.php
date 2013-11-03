@@ -36,6 +36,11 @@ if(!empty($arResult['IMAGES']))
 			data-loop="true"
 			<?
 		}?>
+		<?if(!empty($arParams['NAVIGATION_POSITION']) && $arParams['NAVIGATION_POSITION'] === 'top'){
+			?>
+			data-navposition="<?echo $arParams['NAVIGATION_POSITION']?>"
+			<?
+		}?>
 		>
 		<?
 		foreach($arResult['IMAGES'] as $key => $image)

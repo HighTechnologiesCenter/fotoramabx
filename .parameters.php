@@ -14,6 +14,11 @@ $navigationStyles = array(
 	'dots' => GetMessage('NAVIGATION_DOTS'),
 	'false' => GetMessage('NAVIGATION_NONE'),
 );
+$navigationPositions = array(
+	'bottom' => GetMessage('NAVIGATION_POSITION_BOTTOM'),
+	'top' => GetMessage('NAVIGATION_POSITION_TOP'),
+	'over' => GetMessage('NAVIGATION_POSITION_OVER'),
+);
 $sourceTypes = array( //типы источников изображений
 	'medialibrary_collection' => GetMessage('MEDIALIBRARY_COLLECTION'), //коллекция медиабиблиотеки
 	'iblock_section' => GetMessage('IBLOCK_SECTION'), //раздел инфоблока (используются изображения анонса и детальные изображения элементов) 
@@ -185,10 +190,14 @@ $arComponentParameters = array(
 			'NAME' => GetMessage('LAZY_LOAD'),
 			'TYPE' => 'CHECKBOX',
 		),
-		'SHOW_NAVIGATION_ON_IMAGE' => array( //показываь навигацию поверх изображения
+		'NAVIGATION_POSITION' => array( //расположение навигации
 			'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
-			'NAME' => GetMessage('SHOW_NAVIGATION_ON_IMAGE'),
-			'TYPE' => 'CHECKBOX',
+			'NAME' => GetMessage('NAVIGATION_POSITION'),
+			'TYPE' => 'LIST',
+			'ADDITIONAL_VALUES' => 'N',
+			'VALUES' => $navigationPositions,
+			'REFRESH' => 'N',
+			'MULTIPLE' => 'N',
 		),
 		'LOOP' => array( //зациклить навигацию по изображениям
 			'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',

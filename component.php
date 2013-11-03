@@ -7,7 +7,7 @@ if(CModule::IncludeModule('fileman'))
 	 */
 	$APPLICATION->SetAdditionalCSS('http://fotorama.s3.amazonaws.com/4.4.6/fotorama.css');
 
-	if(!empty($arParams['SHOW_NAVIGATION_ON_IMAGE']) && $arParams['SHOW_NAVIGATION_ON_IMAGE'] === 'Y')
+	if(!empty($arParams['NAVIGATION_POSITION']) && $arParams['NAVIGATION_POSITION'] === 'over')
 	{
 		$APPLICATION->AddHeadString('<style>.fotorama__nav-wrap{position: absolute;bottom: 2px;left:0;right:0;}</style>');
 	}
