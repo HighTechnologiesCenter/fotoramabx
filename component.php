@@ -102,7 +102,7 @@ if ($this->StartResultCache($arParams['CACHE_TIME']))
 		$parameters['ALLOW_FULLSCREEN'] = $arParams['ALLOW_FULLSCREEN'];
 	}
 
-	$parameters['SHOW_CAPTION'] = 'false'; //Показывать подписи
+	$parameters['SHOW_CAPTION'] = false; //Показывать подписи
 	if (!empty($arParams['SHOW_CAPTION']) && $arParams['SHOW_CAPTION'] === 'Y')
 	{
 		$parameters['SHOW_CAPTION'] = true;
