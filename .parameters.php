@@ -1,116 +1,47 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$availableSources = array(); //массив для конечных идентификаторов источников изображений 
-$sourceIdName = ''; //заголовок поля выбором ID источника изображений
+include_once('class.php'); //Для удобного использования констант из класса компонента
+
+$availableSources = array(); //Массив для конечных идентификаторов источников изображений 
+$sourceIdParameterName = ''; //Заголовок поля выбором ID источника изображений
 
 $fullscreenModes = array(
-	'false' => GetMessage('FULLSCREEN_DISABLED'),
-	'true' => GetMessage('FULLSCREEN_ENABLED'),
-	'native' => GetMessage('FULLSCREEN_NATIVE'),
-);
-$navigationStyles = array(
-	'thumbs' => GetMessage('NAVIGATION_THUMBS'),
-	'dots' => GetMessage('NAVIGATION_DOTS'),
-	'false' => GetMessage('NAVIGATION_NONE'),
-);
-$navigationPositions = array(
-	'bottom' => GetMessage('NAVIGATION_POSITION_BOTTOM'),
-	'top' => GetMessage('NAVIGATION_POSITION_TOP'),
-);
-$sourceTypes = array( //типы источников изображений
-	'medialibrary_collection' => GetMessage('MEDIALIBRARY_COLLECTION'), //коллекция медиабиблиотеки
-	'iblock_section' => GetMessage('IBLOCK_SECTION'), //раздел инфоблока (используются изображения анонса и детальные изображения элементов) 
+	CFotoramaComponent::FULLSCREEN_MODE_DISABLED => GetMessage('FULLSCREEN_DISABLED'), //Полноэкранный режим отключен
+	CFotoramaComponent::FULLSCREEN_MODE_ENABLED => GetMessage('FULLSCREEN_ENABLED'), //Разрешить просмотр во все окно
+	CFotoramaComponent::FULLSCREEN_MODE_NATIVE => GetMessage('FULLSCREEN_NATIVE'), //Разрешить использование Fullscreen API
 );
 
-switch($arCurrentValues['SOURCE_TYPE'])
+$navigationStyles = array(
+	CFotoramaComponent::NAVIGATION_STYLE_THUMBS => GetMessage('NAVIGATION_THUMBS'), //Миниатюры изображений
+	CFotoramaComponent::NAVIGATION_STYLE_DOTS => GetMessage('NAVIGATION_DOTS'), //Точки
+	CFotoramaComponent::NAVIGATION_STYLE_DISABLED => GetMessage('NAVIGATION_NONE'), //Отключить навигацию
+);
+
+$navigationPositions = array(
+	CFotoramaComponent::NAVIGATION_POSITION_BOTTOM => GetMessage('NAVIGATION_POSITION_BOTTOM'),
+	CFotoramaComponent::NAVIGATION_POSITION_TOP => GetMessage('NAVIGATION_POSITION_TOP'),
+);
+
+$sourceTypes = array(); //типы источников изображений
+if (CModule::IncludeModule("fileman"))
 {
-	case 'iblock_section':
-		$sourceIdName = GetMessage('IBLOCK_SECTION');
-		
-		if(CModule::IncludeModule("iblock"))
-		{			
-			/**
-			 * Найдем все разделы выбранного инфоблока (если он, конечно, выбран)
-			 */
-			if(!empty($arCurrentValues['IBLOCK_ID']) && $arCurrentValues['IBLOCK_ID'] > 0)
-			{
-				$dbIblockSections = CIBlockSection::GetList(
-					array(
-						'SECTION' => 'ASC',
-						'SORT' => 'ASC',
-					),
-					array(
-						'IBLOCK_ID' => $arCurrentValues['IBLOCK_ID'],
-						'ACTIVE' => 'Y',
-					),
-					false,
-					array(
-						'ID', 
-						'NAME'
-					),
-					false
-				);
-				
-				while($iblockSectionInfo = $dbIblockSections->GetNext())
-				{
-					$availableSources[$iblockSectionInfo['ID']] = $iblockSectionInfo['NAME'];
-				}
-			}
-		}
-		else
-		{
-			ShowError(GetMessage('IBLOCK_MODULE_NOT_INSTALLED'));//TODO ошибки не показываются в форме редактирования параметров компонента
-			return;
-		}
-		break;
-	case 'medialibrary_collection':
-	default:
-		$sourceIdName = GetMessage('MEDIALIBRARY_COLLECTION');
-		
-		if(CModule::IncludeModule("fileman"))
-		{
-			CMedialib::Init(); //Классы медиабиблиотеки недоступны до ее инициализации
-	
-			//CMedialibCollection::GetList возвращает сразу массив с информацией о коллекциях 
-			$medialibraryCollections = CMedialibCollection::GetList(
-				array(
-					'arFilter' => array(
-						'ACTIVE' => 'Y'
-					)
-				)
-			);
-	
-			foreach($medialibraryCollections as $medialibraryCollection)
-			{
-				$collectionId = $medialibraryCollection['ID'];
-				$collectionName = $medialibraryCollection['NAME'];
-	
-				$availableSources[$collectionId] = $collectionName;
-			}
-		}
-		else
-		{
-			ShowError(GetMessage('FILEMAN_MODULE_NOT_INSTALLED'));//TODO ошибки не показываются в форме редактирования параметров компонента
-			return;
-		}
-		break;
+	$sourceTypes[CFotoramaComponent::SOURCE_TYPE_MEDIALIBRARY_COLLECTION] = GetMessage('MEDIALIBRARY_COLLECTION'); //Коллекция медиабиблиотеки
+}
+if (CModule::IncludeModule("iblock"))
+{
+	$sourceTypes[CFotoramaComponent::SOURCE_TYPE_IBLOCK_SECTION] = GetMessage('IBLOCK_SECTION'); //Раздел инфоблока (используются изображения анонса и детальные изображения элементов)
 }
 
+/**
+ * Настраиваемые параметры компонента
+ */
+$customComponentParameters = array();
 
-$arComponentParameters = array(
-	'GROUPS' => array(
-		'FOTORAMA_EXTENDED_SETTINGS' => array(
-			'NAME' => GetMessage('FOTORAMA_EXTENDED_SETTINGS'),
-			'SORT' => 400,
-		),		
-	),
-	'PARAMETERS' => array(
-		'CACHE_TIME' => array(
-			'DEFAULT' => 3600,
-		),
-	),
+$customComponentParameters['CACHE_TIME'] = array( //Настройки кеширования
+	'DEFAULT' => CFotoramaComponent::CACHE_TIME_DEFAULT,
 );
-$arComponentParameters['PARAMETERS']['SOURCE_TYPE'] = array( //выбор источника изображений
+
+$customComponentParameters['SOURCE_TYPE'] = array( //Выбор источника изображений
 	'PARENT' => 'BASE',
 	'NAME' => GetMessage('SOURCE_TYPE'),
 	'TYPE' => 'LIST',
@@ -120,10 +51,12 @@ $arComponentParameters['PARAMETERS']['SOURCE_TYPE'] = array( //выбор ист
 	'MULTIPLE' => 'N',
 );
 
-if($arCurrentValues['SOURCE_TYPE'] === 'iblock_section')
+if ($arCurrentValues['SOURCE_TYPE'] === CFotoramaComponent::SOURCE_TYPE_IBLOCK_SECTION && isset($sourceTypes[CFotoramaComponent::SOURCE_TYPE_IBLOCK_SECTION]))
 {
-	//TODO здесь надо бы проверять, подключен ли вообще модуль инфоблоков
-	$iblocksList = array();
+	$sourceIdParameterName = GetMessage('IBLOCK_SECTION');
+
+	$iblocksList = array(); //Получим список всех активных инфоблоков
+
 	$dbIblocks = CIBlock::GetList(
 		array(
 			'IBLOCK_TYPE' => 'ASC',
@@ -140,7 +73,7 @@ if($arCurrentValues['SOURCE_TYPE'] === 'iblock_section')
 		$iblocksList[$iblockInfo['ID']] = $iblockInfo['NAME'];
 	}
 
-	$arComponentParameters['PARAMETERS']['IBLOCK_ID'] = array(
+	$customComponentParameters['IBLOCK_ID'] = array(
 		'PARENT' => 'BASE',
 		'NAME' => GetMessage('IBLOCK'),
 		'TYPE' => 'LIST',
@@ -149,18 +82,69 @@ if($arCurrentValues['SOURCE_TYPE'] === 'iblock_section')
 		'REFRESH' => 'Y',
 		'MULTIPLE' => 'N',
 	);
+
+	if (!empty($arCurrentValues['IBLOCK_ID']) && $arCurrentValues['IBLOCK_ID'] > 0)
+	{
+		$dbIblockSections =	CIBlockSection::GetList(
+			array(
+				'SECTION' => 'ASC',
+				'SORT' => 'ASC',
+			),
+			array(
+				'IBLOCK_ID' => $arCurrentValues['IBLOCK_ID'],
+				'ACTIVE' => 'Y',
+			),
+			false,
+			array(
+				'ID',
+				'NAME'
+			),
+			false
+		);
+
+		while($iblockSectionInfo = $dbIblockSections->GetNext())
+		{
+			$availableSources[$iblockSectionInfo['ID']] = $iblockSectionInfo['NAME'];
+		}
+	}
+}
+elseif ($arCurrentValues['SOURCE_TYPE'] === CFotoramaComponent::SOURCE_TYPE_MEDIALIBRARY_COLLECTION && isset($sourceTypes[CFotoramaComponent::SOURCE_TYPE_MEDIALIBRARY_COLLECTION]))
+{
+	$sourceIdParameterName = GetMessage('MEDIALIBRARY_COLLECTION');
+
+	CMedialib::Init(); //Классы медиабиблиотеки недоступны до ее инициализации
+
+	//CMedialibCollection::GetList возвращает сразу массив с информацией о коллекциях 
+	$medialibraryCollections = CMedialibCollection::GetList(
+		array(
+			'arFilter' => array(
+				'ACTIVE' => 'Y'
+			)
+		)
+	);
+
+	foreach($medialibraryCollections as $medialibraryCollection)
+	{
+		$collectionId = $medialibraryCollection['ID'];
+		$collectionName = $medialibraryCollection['NAME'];
+		$availableSources[$collectionId] = $collectionName;
+	}
 }
 
-$arComponentParameters['PARAMETERS']['SOURCE_ID'] = array( //выбор коллекции, из которой брать фотографии
-	'PARENT' => 'BASE',
-	'NAME' => $sourceIdName,
-	'TYPE' => 'LIST',
-	'ADDITIONAL_VALUES' => 'N',
-	'VALUES' => $availableSources,
-	'REFRESH' => 'N',
-	'MULTIPLE' => 'N',
-);
-$arComponentParameters['PARAMETERS']['ALLOW_FULLSCREEN'] = array( //выбор режима поноэкранного просмотра
+if(!empty($arCurrentValues['SOURCE_TYPE']))
+{
+	$customComponentParameters['SOURCE_ID'] = array( //Список доступных коллекций медиабиблиотеки или разделов инфоблоков
+		'PARENT' => 'BASE',
+		'NAME' => $sourceIdParameterName,
+		'TYPE' => 'LIST',
+		'ADDITIONAL_VALUES' => 'N',
+		'VALUES' => $availableSources,
+		'REFRESH' => 'N',
+		'MULTIPLE' => 'N',
+	);
+}
+
+$customComponentParameters['ALLOW_FULLSCREEN'] = array( //Выбор режима поноэкранного просмотра
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('ALLOW_FULLSCREEN'),
 	'TYPE' => 'LIST',
@@ -169,7 +153,8 @@ $arComponentParameters['PARAMETERS']['ALLOW_FULLSCREEN'] = array( //выбор �
 	'REFRESH' => 'N',
 	'MULTIPLE' => 'N',
 );
-$arComponentParameters['PARAMETERS']['NAVIGATION_STYLE'] = array( //выбор стиля навигации (миниатюры, точки или никакой навигации)
+
+$customComponentParameters['NAVIGATION_STYLE'] = array( //Выбор стиля навигации (миниатюры, точки или никакой навигации)
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('NAVIGATION_STYLE'),
 	'TYPE' => 'LIST',
@@ -178,27 +163,32 @@ $arComponentParameters['PARAMETERS']['NAVIGATION_STYLE'] = array( //выбор �
 	'REFRESH' => 'N',
 	'MULTIPLE' => 'N',
 );
-$arComponentParameters['PARAMETERS']['SHOW_CAPTION'] = array( //показывать подписи
+
+$customComponentParameters['SHOW_CAPTION'] = array( //Показывать подписи
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('SHOW_CAPTION'),
 	'TYPE' => 'CHECKBOX',
 );
-$arComponentParameters['PARAMETERS']['SHUFFLE'] = array( //перемешивать ли изображения каждый раз перед выводом
+
+$customComponentParameters['SHUFFLE'] = array( //Перемешивать ли изображения каждый раз перед выводом
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('SHUFFLE'),
 	'TYPE' => 'CHECKBOX',
 );
-$arComponentParameters['PARAMETERS']['CHANGE_HASH'] = array( //изменять ли хэш в адресной строке
+
+$customComponentParameters['CHANGE_HASH'] = array( //Изменять ли хэш в адресной строке
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('CHANGE_HASH'),
 	'TYPE' => 'CHECKBOX',
 );
-$arComponentParameters['PARAMETERS']['LAZY_LOAD'] = array( //игнорировать браузеры с отключенным JS http://fotorama.io/customize/lazy-load/
+
+$customComponentParameters['LAZY_LOAD'] = array( //Игнорировать браузеры с отключенным JS http://fotorama.io/customize/lazy-load/
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('LAZY_LOAD'),
 	'TYPE' => 'CHECKBOX',
 );
-$arComponentParameters['PARAMETERS']['NAVIGATION_POSITION'] = array( //расположение навигации
+
+$customComponentParameters['NAVIGATION_POSITION'] = array( //Расположение навигации
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('NAVIGATION_POSITION'),
 	'TYPE' => 'LIST',
@@ -207,8 +197,22 @@ $arComponentParameters['PARAMETERS']['NAVIGATION_POSITION'] = array( //расп�
 	'REFRESH' => 'N',
 	'MULTIPLE' => 'N',
 );
-$arComponentParameters['PARAMETERS']['LOOP'] = array( //зациклить навигацию по изображениям
+
+$customComponentParameters['LOOP'] = array( //Зациклить навигацию по изображениям
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('LOOP'),
 	'TYPE' => 'CHECKBOX',
+);
+
+/**
+ * Все параметры компонента
+ */
+$arComponentParameters = array(
+	'GROUPS' => array(
+		'FOTORAMA_EXTENDED_SETTINGS' => array( //Группа расширенных настроек Фоторамы
+			'NAME' => GetMessage('FOTORAMA_EXTENDED_SETTINGS'),
+			'SORT' => 400,
+		),
+	),
+	'PARAMETERS' => $customComponentParameters,
 );

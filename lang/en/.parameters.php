@@ -21,7 +21,5 @@ $MESS['MEDIALIBRARY_COLLECTION'] = 'Medialibrary collection';
 $MESS['IBLOCK_SECTION'] = 'Iblock section';
 $MESS['SOURCE_TYPE'] = 'Images source type';
 $MESS['SOURCE_TYPE'] = 'Images source';
-$MESS['FILEMAN_MODULE_NOT_FOUND'] = 'Filemanager module not intalled';
-$MESS['IBLOCK_MODULE_NOT_FOUND'] = 'Iblock module not intalled';
 $MESS['IBLOCK'] = 'Iblock';
 $MESS['SHOW_CAPTION'] = 'Show image caption';

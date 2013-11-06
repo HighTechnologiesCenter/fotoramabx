@@ -3,12 +3,27 @@
 class CFotoramaComponent extends CBitrixComponent
 {
 	/**
+	 * Константы
+	 */
+	const SOURCE_TYPE_MEDIALIBRARY_COLLECTION = 'medialibrary_collection';
+	const SOURCE_TYPE_IBLOCK_SECTION = 'iblock_section';
+	const FULLSCREEN_MODE_DISABLED = 'false';
+	const FULLSCREEN_MODE_NATIVE = 'native';
+	const FULLSCREEN_MODE_ENABLED = 'true';
+	const NAVIGATION_STYLE_DOTS = 'dots';
+	const NAVIGATION_STYLE_THUMBS = 'thumbs';
+	const NAVIGATION_STYLE_DISABLED = 'false';
+	const NAVIGATION_POSITION_BOTTOM = 'bottom';
+	const NAVIGATION_POSITION_TOP = 'top';
+	const CACHE_TIME_DEFAULT = 3600;
+
+	/**
 	 * Получает все изображения коллекции медиабиблиотеки
 	 * @param $medialibraryCollectionId
 	 * @return array
 	 */
 	public function getImagesFromMedialibraryCollection($medialibraryCollectionId)
-	{
+	{		
 		$images = array();
 		
 		CMedialib::Init(); //Классы медиабиблиотеки недоступны до ее инициализации
@@ -23,9 +38,9 @@ class CFotoramaComponent extends CBitrixComponent
 		 * В CMedialibItem::GetList нет возможности фильтрации по типу элемента коллекции, 
 		 * поэтому придется выбрать изображения вручную
 		 */
-		foreach($items as $item)
+		foreach ($items as $item)
 		{
-			if($item['TYPE'] === 'image')
+			if ($item['TYPE'] === 'image')
 			{
 				$image = array(
 					'HEIGHT' => $item['HEIGHT'],
@@ -49,45 +64,42 @@ class CFotoramaComponent extends CBitrixComponent
 	public function getImagesFromIblockSection($sectionId)
 	{
 		$images = array();
+		
+		$iblockElements = CIBlockElement::GetList(
+			array(
+				'SORT' => 'ASC',
+				'ID' => 'ASC',
+			),
+			array(
+				'SECTION_ID' => $sectionId,
+				'ACTIVE' => 'Y',
+				'>PREVIEW_PICTURE' => 0, //фильтруем по обязательному наличию изображения анонса
+				'>DETAIL_PICTURE' => 0 //и по обязательному наличию детального изображения
+			),
+			false,
+			false,
+			array(
+				'ID',
+				'NAME',
+				'PREVIEW_PICTURE',
+				'DETAIL_PICTURE',
+			)
+		);
 
-		if(CModule::IncludeModule("iblock"))
+		while ($iblockElement = $iblockElements->GetNext())
 		{
-			$iblockElements = CIBlockElement::GetList(
-				array(
-					'SORT' => 'ASC',
-					'ID' => 'ASC',
-					'HAS_DETAIL_PICTURE' => 'Y',
-					'HAS_PREVIEW_PICTURE' => 'Y'
-				),
-				array(
-					'SECTION_ID' => $sectionId,
-					'ACTIVE' => 'Y',
-				),
-				false,
-				false,
-				array(
-					'ID',
-					'NAME',
-					'PREVIEW_PICTURE',
-					'DETAIL_PICTURE',
-				)
+			$path = CFile::GetPath($iblockElement['DETAIL_PICTURE']); //CFile::GetByID не возвращает полного пути до изображения
+			$thumbPath = CFile::GetPath($iblockElement['PREVIEW_PICTURE']);
+			$detailPictureInfo = CFile::GetByID($iblockElement['DETAIL_PICTURE'])->Fetch();
+			
+			$image = array(
+				'HEIGHT' => $detailPictureInfo['HEIGHT'],
+				'WIDTH' => $detailPictureInfo['WIDTH'],
+				'PATH' => $path,
+				'THUMB_PATH' => $thumbPath,
+				'DESCRIPTION' => $detailPictureInfo['DESCRIPTION'],
 			);
-
-			while($iblockElement = $iblockElements->GetNext())
-			{
-				$path = CFile::GetPath($iblockElement['DETAIL_PICTURE']); //CFile::GetByID не возвращает полного пути до изображения
-				$thumbPath = CFile::GetPath($iblockElement['PREVIEW_PICTURE']);
-				$detailPictureInfo = CFile::GetByID($iblockElement['DETAIL_PICTURE'])->Fetch();
-				
-				$image = array(
-					'HEIGHT' => $detailPictureInfo['HEIGHT'],
-					'WIDTH' => $detailPictureInfo['WIDTH'],
-					'PATH' => $path,
-					'THUMB_PATH' => $thumbPath,
-					'DESCRIPTION' => $detailPictureInfo['DESCRIPTION'],
-				);
-				$images[] = $image;
-			}
+			$images[] = $image;
 		}
 		
 		return $images;
