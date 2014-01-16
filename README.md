@@ -15,5 +15,9 @@ Then double click on the component icon and set up images source and other param
 
 ![Fotorama component parameters](http://f.cl.ly/items/3f3R2d1N3V352Q1Y3z2G/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202013-11-03%20%D0%B2%2012.30.00.png)
 
+## Twig template
+
+To use Twig version of component template when using Twig template engine (see (Twigrix)[https://github.com/HighTechnologiesCenter/twigrix]) delete `template.php` from component template (`/bitrix/components/htc/fotoramabx/templates/.default/`). 
+
 ## Copyright
 Proudly made in [High Technologies Center](http://htc-cs.ru), Izhevsk, Russia.
