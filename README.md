@@ -17,7 +17,7 @@ Then double click on the component icon and set up images source and other param
 
 ## Twig template
 
-To use Twig version of component template when using Twig template engine (see (Twigrix)[https://github.com/HighTechnologiesCenter/twigrix]) delete `template.php` from component template (`/bitrix/components/htc/fotoramabx/templates/.default/`). 
+To use Twig version of component template when using Twig template engine (see [Twigrix](https://github.com/HighTechnologiesCenter/twigrix)) delete `template.php` from component template (`/bitrix/components/htc/fotoramabx/templates/.default/`). 
 
 ## Copyright
 Proudly made in [High Technologies Center](http://htc-cs.ru), Izhevsk, Russia.
