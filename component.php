@@ -121,6 +121,6 @@ if ($this->StartResultCache($arParams['CACHE_TIME']))
 /**
  * Так как без JS- и CSS-файлов Фоторамы компонент не имеет смысла, добавляем их тут
  */
-$APPLICATION->SetAdditionalCSS('http://fotorama.s3.amazonaws.com/4.4.8/fotorama.css');
+$APPLICATION->SetAdditionalCSS('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
 $APPLICATION->AddHeadString('<script>!window.jQuery && document.write(unescape(\'%3Cscript src="//code.jquery.com/jquery-1.10.2.min.js"%3E%3C/script%3E\'))</script>',true);
-$APPLICATION->AddHeadString('<script src="http://fotorama.s3.amazonaws.com/4.4.8/fotorama.js"></script>');
+$APPLICATION->AddHeadString('<script src="http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js"></script>');
