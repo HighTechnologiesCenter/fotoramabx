@@ -24,6 +24,9 @@ $parameters = $arResult['PARAMETERS'];
 	<? endif; ?>
 	<? if ($parameters['SHOW_ARROWS'] === false): ?>
 		data-arrows="false"
+	<? endif; ?>
+	<? if ($parameters['TRANSITION_EFFECT']): ?>
+		data-transition="<? echo $parameters['TRANSITION_EFFECT']; ?>"
 	<? endif; ?>>
 	<? foreach ($arResult['IMAGES'] as $key => $image): ?>
 		<a href="<? echo $image['PATH']; ?>" id="fotorama-<? echo $key; ?>" 

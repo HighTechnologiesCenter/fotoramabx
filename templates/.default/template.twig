@@ -21,6 +21,9 @@
     {% endif %}
     {% if parameters.SHOW_ARROWS == false %}
     data-arrows="false"
+    {% endif %}
+    {% if parameters.TRANSITION_EFFECT %}
+    data-transition="{{ parameters.TRANSITION_EFFECT }}"
     {% endif %}>
     {% for image in result.IMAGES %}
     <a href="{{ image.PATH }}" id="fotorama-{{ loop.index0 }}"

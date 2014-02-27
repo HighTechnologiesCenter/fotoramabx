@@ -30,3 +30,7 @@ $MESS['AUTOPLAY_3SEC'] = 'Через 3 секунды';
 $MESS['AUTOPLAY_5SEC'] = 'Через 5 секунд';
 $MESS['AUTOPLAY_10SEC'] = 'Через 10 секунд';
 $MESS['SHOW_ARROWS'] = 'Показывать стрелки навигации';
+$MESS['TRANSITION_EFFECT'] = 'Визуальный эффект смены кадров';
+$MESS['TRANSITION_EFFECT_SLIDE'] = 'Слайдер';
+$MESS['TRANSITION_EFFECT_CROSSFADE'] = 'Плавный переход';
+$MESS['TRANSITION_EFFECT_DISSOLVE'] = 'Растворение';

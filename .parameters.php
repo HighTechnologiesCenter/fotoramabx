@@ -40,6 +40,12 @@ $autoplayIntervals = array(
 	10000 => GetMessage('AUTOPLAY_10SEC'),
 );
 
+$transitionEffects = array(
+	CFotoramaComponent::TRANSITION_EFFECT_SLIDE => GetMessage('TRANSITION_EFFECT_SLIDE'),
+	CFotoramaComponent::TRANSITION_EFFECT_CROSSFADE => GetMessage('TRANSITION_EFFECT_CROSSFADE'),
+	CFotoramaComponent::TRANSITION_EFFECT_DISSOLVE => GetMessage('TRANSITION_EFFECT_DISSOLVE'),
+);
+
 /**
  * Настраиваемые параметры компонента
  */
@@ -225,6 +231,16 @@ $customComponentParameters['AUTOPLAY'] = array( //Автоматически п�
 	'TYPE' => 'LIST',
 	'ADDITIONAL_VALUES' => 'N',
 	'VALUES' => $autoplayIntervals,
+	'REFRESH' => 'N',
+	'MULTIPLE' => 'N',
+);
+
+$customComponentParameters['TRANSITION_EFFECT'] = array( //Визуальный эффект смены изображений
+	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
+	'NAME' => GetMessage('TRANSITION_EFFECT'),
+	'TYPE' => 'LIST',
+	'ADDITIONAL_VALUES' => 'N',
+	'VALUES' => $transitionEffects,
 	'REFRESH' => 'N',
 	'MULTIPLE' => 'N',
 );

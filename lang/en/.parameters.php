@@ -30,3 +30,7 @@ $MESS['AUTOPLAY_3SEC'] = 'Every 3 seconds';
 $MESS['AUTOPLAY_5SEC'] = 'Every 5 seconds';
 $MESS['AUTOPLAY_10SEC'] = 'Every 10 seconds';
 $MESS['SHOW_ARROWS'] = 'Show navigation arrows';
+$MESS['TRANSITION_EFFECT'] = 'Transition effect';
+$MESS['TRANSITION_EFFECT_SLIDE'] = 'Slide';
+$MESS['TRANSITION_EFFECT_CROSSFADE'] = 'Crossfade';
+$MESS['TRANSITION_EFFECT_DISSOLVE'] = 'Dissolve';

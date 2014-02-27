@@ -16,6 +16,9 @@ class CFotoramaComponent extends CBitrixComponent
 	const NAVIGATION_POSITION_BOTTOM = 'bottom';
 	const NAVIGATION_POSITION_TOP = 'top';
 	const CACHE_TIME_DEFAULT = 3600;
+	const TRANSITION_EFFECT_SLIDE = 'slide';
+	const TRANSITION_EFFECT_CROSSFADE = 'crossfade';
+	const TRANSITION_EFFECT_DISSOLVE = 'dissolve';
 
 	/**
 	 * Получает все изображения коллекции медиабиблиотеки

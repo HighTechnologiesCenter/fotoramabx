@@ -123,6 +123,11 @@ if ($this->StartResultCache($arParams['CACHE_TIME']))
 		$parameters['AUTOPLAY'] = $arParams['AUTOPLAY'];
 	}
 
+	$parameters['TRANSITION_EFFECT'] = false; //Визуальный эффект смены изображений
+	if (!empty($arParams['TRANSITION_EFFECT'])) {
+		$parameters['TRANSITION_EFFECT'] = $arParams['TRANSITION_EFFECT'];
+	}
+
 	$arResult['PARAMETERS'] = $parameters;
 
 	$this->IncludeComponentTemplate();
