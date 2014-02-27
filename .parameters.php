@@ -206,6 +206,13 @@ $customComponentParameters['NAVIGATION_POSITION'] = array( //Расположе�
 	'MULTIPLE' => 'N',
 );
 
+$customComponentParameters['SHOW_ARROWS'] = array( //Показывать стрелкки навигации
+	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
+	'NAME' => GetMessage('SHOW_ARROWS'),
+	'TYPE' => 'CHECKBOX',
+	'DEFAULT' => 'Y',
+);
+
 $customComponentParameters['LOOP'] = array( //Зациклить навигацию по изображениям
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('LOOP'),

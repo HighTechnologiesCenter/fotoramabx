@@ -29,3 +29,4 @@ $MESS['AUTOPLAY_1SEC'] = 'Every second';
 $MESS['AUTOPLAY_3SEC'] = 'Every 3 seconds';
 $MESS['AUTOPLAY_5SEC'] = 'Every 5 seconds';
 $MESS['AUTOPLAY_10SEC'] = 'Every 10 seconds';
+$MESS['SHOW_ARROWS'] = 'Show navigation arrows';

@@ -96,6 +96,11 @@ if ($this->StartResultCache($arParams['CACHE_TIME']))
 		$parameters['NAVIGATION_STYLE'] = $arParams['NAVIGATION_STYLE']; 
 	}
 
+	$parameters['SHOW_ARROWS'] = false; //Показывать стрелки навигации
+	if (!empty($arParams['SHOW_ARROWS']) && $arParams['SHOW_ARROWS'] === 'Y') {
+		$parameters['SHOW_ARROWS'] = true;
+	}
+
 	$parameters['ALLOW_FULLSCREEN'] = CFotoramaComponent::FULLSCREEN_MODE_DISABLED; //Полноэкранный режим (отключен по умолчанию)
 	if (!empty($arParams['ALLOW_FULLSCREEN']))
 	{

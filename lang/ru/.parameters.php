@@ -29,3 +29,4 @@ $MESS['AUTOPLAY_1SEC'] = 'Через 1 секунду';
 $MESS['AUTOPLAY_3SEC'] = 'Через 3 секунды';
 $MESS['AUTOPLAY_5SEC'] = 'Через 5 секунд';
 $MESS['AUTOPLAY_10SEC'] = 'Через 10 секунд';
+$MESS['SHOW_ARROWS'] = 'Показывать стрелки навигации';

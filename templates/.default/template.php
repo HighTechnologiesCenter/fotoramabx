@@ -21,6 +21,9 @@ $parameters = $arResult['PARAMETERS'];
 	<? endif; ?>
 	<? if ($parameters['AUTOPLAY']): ?>
 		data-autoplay="<? echo $parameters['AUTOPLAY']; ?>"
+	<? endif; ?>
+	<? if ($parameters['SHOW_ARROWS'] === false): ?>
+		data-arrows="false"
 	<? endif; ?>>
 	<? foreach ($arResult['IMAGES'] as $key => $image): ?>
 		<a href="<? echo $image['PATH']; ?>" id="fotorama-<? echo $key; ?>" 
