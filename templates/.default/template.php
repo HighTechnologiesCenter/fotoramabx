@@ -18,6 +18,9 @@ $parameters = $arResult['PARAMETERS'];
 	<? endif; ?>
 	<? if ($parameters['NAVIGATION_ON_TOP']): ?>
 		data-navposition="top"
+	<? endif; ?>
+	<? if ($parameters['AUTOPLAY']): ?>
+		data-autoplay="<? echo $parameters['AUTOPLAY']; ?>"
 	<? endif; ?>>
 	<? foreach ($arResult['IMAGES'] as $key => $image): ?>
 		<a href="<? echo $image['PATH']; ?>" id="fotorama-<? echo $key; ?>" 

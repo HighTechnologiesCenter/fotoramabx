@@ -113,6 +113,11 @@ if ($this->StartResultCache($arParams['CACHE_TIME']))
 		$parameters['LAZY_LOAD'] = true;
 	}
 
+	$parameters['AUTOPLAY'] = false; //Автоматическое перелистывание изображений
+	if (!empty($arParams['AUTOPLAY']) && $arParams['AUTOPLAY'] > 0) {
+		$parameters['AUTOPLAY'] = $arParams['AUTOPLAY'];
+	}
+
 	$arResult['PARAMETERS'] = $parameters;
 
 	$this->IncludeComponentTemplate();

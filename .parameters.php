@@ -32,6 +32,14 @@ if (CModule::IncludeModule("iblock"))
 	$sourceTypes[CFotoramaComponent::SOURCE_TYPE_IBLOCK_SECTION] = GetMessage('IBLOCK_SECTION'); //Раздел инфоблока (используются изображения анонса и детальные изображения элементов)
 }
 
+$autoplayIntervals = array(
+	0 => GetMessage('AUTOPLAY_DISABLED'),
+	1000 => GetMessage('AUTOPLAY_1SEC'),
+	3000 => GetMessage('AUTOPLAY_3SEC'),
+	5000 => GetMessage('AUTOPLAY_5SEC'),
+	10000 => GetMessage('AUTOPLAY_10SEC'),
+);
+
 /**
  * Настраиваемые параметры компонента
  */
@@ -202,6 +210,16 @@ $customComponentParameters['LOOP'] = array( //Зациклить навигац�
 	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
 	'NAME' => GetMessage('LOOP'),
 	'TYPE' => 'CHECKBOX',
+);
+
+$customComponentParameters['AUTOPLAY'] = array( //Автоматически перелистывать изображения
+	'PARENT' => 'FOTORAMA_EXTENDED_SETTINGS',
+	'NAME' => GetMessage('AUTOPLAY'),
+	'TYPE' => 'LIST',
+	'ADDITIONAL_VALUES' => 'N',
+	'VALUES' => $autoplayIntervals,
+	'REFRESH' => 'N',
+	'MULTIPLE' => 'N',
 );
 
 /**

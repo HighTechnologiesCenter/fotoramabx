@@ -15,6 +15,9 @@
     {% endif %}
     {% if parameters.NAVIGATION_ON_TOP %}
     data-navposition="top"
+    {% endif %}
+    {% if parameters.AUTOPLAY %}
+    data-autoplay="{{ parameters.AUTOPLAY }}"
     {% endif %}>
     {% for image in result.IMAGES %}
     <a href="{{ image.PATH }}" id="fotorama-{{ loop.index0 }}"
