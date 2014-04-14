@@ -86,6 +86,8 @@ class CFotoramaComponent extends CBitrixComponent
 				'NAME',
 				'PREVIEW_PICTURE',
 				'DETAIL_PICTURE',
+				'PREVIEW_TEXT',
+				'DETAIL_TEXT',
 			)
 		);
 
@@ -94,13 +96,26 @@ class CFotoramaComponent extends CBitrixComponent
 			$path = CFile::GetPath($iblockElement['DETAIL_PICTURE']); //CFile::GetByID не возвращает полного пути до изображения
 			$thumbPath = CFile::GetPath($iblockElement['PREVIEW_PICTURE']);
 			$detailPictureInfo = CFile::GetByID($iblockElement['DETAIL_PICTURE'])->Fetch();
-			
+
+			$description = $detailPictureInfo['DESCRIPTION'];
+			if (empty($description))
+			{
+				if (!empty($iblockElement['DETAIL_TEXT']))
+				{
+					$description = $iblockElement['DETAIL_TEXT'];
+				}
+				else
+				{
+					$description = $iblockElement['PREVIEW_TEXT'];
+				}
+			}
+
 			$image = array(
 				'HEIGHT' => $detailPictureInfo['HEIGHT'],
 				'WIDTH' => $detailPictureInfo['WIDTH'],
 				'PATH' => $path,
 				'THUMB_PATH' => $thumbPath,
-				'DESCRIPTION' => $detailPictureInfo['DESCRIPTION'],
+				'DESCRIPTION' => $description,
 			);
 			$images[] = $image;
 		}
