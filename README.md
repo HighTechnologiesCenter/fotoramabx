@@ -4,7 +4,7 @@ This is a [Bitrix CMS](http://1c-bitrix.ru) photogallery component that uses
 [Fotorama](http://fotorama.io) JS-library by [@artpolikarpov](https://github.com/artpolikarpov).
 
 ## Install
-Install via Bitrix Marketplace.
+Install via [Bitrix Marketplace](http://marketplace.1c-bitrix.ru/solutions/htc.fotoramabx/).
 
 ## Use
 Put it on the page via Bitrix visual editor:
